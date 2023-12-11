@@ -1,16 +1,49 @@
 # ic_calculator
 
-A new Flutter project.
+2023/12 IC内 Flutter勉強会用
+
+* 目的
+
+本プロジェクトでは、下記目的のもと、個人にて自由なアプリ開発を行うものとする
+
+1. 業務外のアプリ作成を行うことで、Flutterのナレッジを幅広く吸収する
+    1. 様々なアーキテクチャを利用することで、以降開発時のアーキテクチャに対する理解を深める
+2. 自由なアプリを行うことでFlutterに対するモチベーションを維持する
+3. 各自開発したアプリについて、10程度のLTを行い、チーム内でナレッジ共有を図る
+
+
+
+* 開発アプリ
+
+アプリ：電卓アプリ
+必須機能：
+
+    * 四則演算
+    * 演算履歴の閲覧
+        * 演算履歴（演算式、演算結果、演算実行日時）
+
+メンバー制約：
+
+    * アーキテクチャ比較検討のため、各自下記アーキテクチャに則っての開発を行う
+        * 喜多：MVVM
+        * 岡村：Clean Architecture
+        * 長崎：MVP
+
+
+
+* スケジュール
+    * 12/11,18 12:00-12:30：中間経過確認
+    * 12/25 12:00-12:30：開発アプリについてLT
+
+
+
+* メモ
+    * 今回、内容として成功を収めた場合、次回以降試したいこととしては下記の通り
+        * OS依存の機能実装
+
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+fvm use stable
+flutter run
