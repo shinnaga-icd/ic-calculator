@@ -1,4 +1,7 @@
 enum Operator {
+  /// 無し（初期化用）
+  none(display: ''),
+
   /// 加算記号(+)
   plus(display: '+'),
 
@@ -11,9 +14,12 @@ enum Operator {
   /// 除算記号(/)
   divid(display: '/');
 
-  final String display;
+  final String _display;
+
+  @override
+  String toString() => _display;
 
   const Operator({
-    required this.display,
-  });
+    required display,
+  }) : _display = display;
 }

@@ -1,49 +1,69 @@
-# ic_calculator
+# 履歴機能付きの電卓アプリ
 
-2023/12 IC内 Flutter勉強会用
+## Overview
 
-* 目的
+#### Project background
 
-本プロジェクトでは、下記目的のもと、個人にて自由なアプリ開発を行うものとする
+> 本プロジェクトは、IC内勉強会の一環として「アーキテクチャを学ぶ」と題して作成されたプロジェクトの一つとなります。
+各メンバー毎に同じテーマ、要件のアプリをMVVM、CleanArchitecture、MVPで作った場合の違いを見つつアーキテクチャに対しての理解を深めるということで、本プロジェクトではその中のMVPでの作成を行っております。
 
-1. 業務外のアプリ作成を行うことで、Flutterのナレッジを幅広く吸収する
-    1. 様々なアーキテクチャを利用することで、以降開発時のアーキテクチャに対する理解を深める
-2. 自由なアプリを行うことでFlutterに対するモチベーションを維持する
-3. 各自開発したアプリについて、10程度のLTを行い、チーム内でナレッジ共有を図る
+#### theme
 
+電卓
 
+#### features
 
-* 開発アプリ
-
-アプリ：電卓アプリ
-必須機能：
-
-    * 四則演算
-    * 演算履歴の閲覧
-        * 演算履歴（演算式、演算結果、演算実行日時）
-
-メンバー制約：
-
-    * アーキテクチャ比較検討のため、各自下記アーキテクチャに則っての開発を行う
-        * 喜多：MVVM
-        * 岡村：Clean Architecture
-        * 長崎：MVP
-
-
-
-* スケジュール
-    * 12/11,18 12:00-12:30：中間経過確認
-    * 12/25 12:00-12:30：開発アプリについてLT
-
-
-
-* メモ
-    * 今回、内容として成功を収めた場合、次回以降試したいこととしては下記の通り
-        * OS依存の機能実装
-
+- 四則演算
+- 過去実行履歴の閲覧
 
 
 ## Getting Started
 
-fvm use stable
-flutter run
+```
+> flutter run
+```
+
+## System Requirements
+
+- Flutter 3.16.3 (channel stable)
+- Dart 3.2.3
+
+
+## System Arcitecture
+
+- logic architecture：MVP architecture
+- state:InheritedWidget
+
+
+```
+lib
+|- core : 共通ロジックを配置
+|   |-enum       : システム全体で利用するenum
+|   |-extentions : システム全体で利用する拡張型
+|   |-models     : Model層
+|   |-state      : システム全体で利用する状態管理
+|- features : 機能別ロジックを配置
+|   |-(feature) : 機能別にフォルダを分割
+|       |-widgets                   : UIパーツ
+|       |-(feature)_presenter.dart  : Presenter層
+|       |-(feature)_view.dart       : View層
+|       |-(feature)_viewmodel.dart  : View層のInterface用
+|- home.dart : 全体をオーバーラップ
+|- main.dart : エントリポイント
+```
+
+## MVP Architecture
+![MVP image(from medium)](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*tvlv-zFL-cnbk9O8pgIgIw.png)
+
+#### 各層の役割
+
+- View
+    - アプリケーションUIを構築
+    - イベントハンドラはPresenterへ移譲
+- Model
+    - データ管理、ビジネスロジック（ルール）を担う
+    - Presenterからのみ呼び出される
+- Presenter
+    - Viewのイベント処理
+    - View-Model間のブリッジ
+    - データ更新をViewへ通知

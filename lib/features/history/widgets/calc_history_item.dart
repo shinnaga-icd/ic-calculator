@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class CalculationHistoryItem extends StatelessWidget {
-  final String calculationDate;
-  final String calculationExpression;
-  final String calculationResult;
+class CalcHistoryItem extends StatelessWidget {
+  final String calcDate;
+  final String calcExpression;
+  final String calcResult;
 
-  const CalculationHistoryItem({
+  const CalcHistoryItem({
     super.key,
-    required this.calculationDate,
-    required this.calculationExpression,
-    required this.calculationResult,
+    required this.calcDate,
+    required this.calcExpression,
+    required this.calcResult,
   });
 
   @override
@@ -25,13 +25,13 @@ class CalculationHistoryItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '計算日時: $calculationDate',
+            '計算日時: $calcDate',
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-          Text('計算式: $calculationExpression'),
+          Text('計算式: $calcExpression'),
           const SizedBox(height: 8),
-          Text('計算結果: $calculationResult'),
+          Text('計算結果: $calcResult'),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ic_calculator/features/calc/calc_view.dart';
+import 'package:ic_calculator/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
           useMaterial3: true,
         ),
-        home: const CalcView(),
+        home: Home(),
       ),
     );
   }

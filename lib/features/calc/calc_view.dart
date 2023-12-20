@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ic_calculator/core/enum/enum.dart';
 import 'package:ic_calculator/core/extentions/num_extentions.dart';
 import 'package:ic_calculator/features/calc/calc_presenter.dart';
-import 'package:ic_calculator/features/calc/calc_viewmodel.dart';
+import 'package:ic_calculator/features/calc/calc_interface.dart';
 import 'package:ic_calculator/features/calc/widgets/calc_button.dart';
 import 'package:ic_calculator/features/calc/widgets/calc_result_text.dart';
 
@@ -13,7 +13,7 @@ class CalcView extends StatefulWidget {
   State<CalcView> createState() => _CalcViewState();
 }
 
-class _CalcViewState extends State<CalcView> implements CalcViewModel {
+class _CalcViewState extends State<CalcView> implements CalcInterface {
   CalcPresenter presenter = CalcPresenter();
 
   /// 数字ボタン 0~9
@@ -23,13 +23,13 @@ class _CalcViewState extends State<CalcView> implements CalcViewModel {
       );
 
   Widget _operatorButton(Operator operator) => CalcButton(
-        displaySentence: operator.display,
+        displaySentence: operator.toString(),
         onPressed: () => presenter.onPressOperator(operator),
       );
 
   /// =ボタン
-  Widget _equalButton() =>
-      CalcButton(displaySentence: '=', onPressed: presenter.onPressDone);
+  Widget _equalButton() => CalcButton(
+      displaySentence: '=', onPressed: () => presenter.onPressDone(context));
 
   /// Cボタン
   Widget _clearButton() =>
@@ -48,7 +48,7 @@ class _CalcViewState extends State<CalcView> implements CalcViewModel {
   @override
   void initState() {
     super.initState();
-    presenter.calcViewModel = this;
+    presenter.calcInterface = this;
     // 卓上のボタン配列
     buttonList = <List<Widget>>[
       [
@@ -87,28 +87,22 @@ class _CalcViewState extends State<CalcView> implements CalcViewModel {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          CalcResultText(dispValue: operand.formatWithCommas()),
-          for (List<Widget> buttonRow in buttonList)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ...buttonRow,
-              ],
-            ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => presenter.goHistory(context),
-        child: const Icon(Icons.history),
-      ),
+    return Column(
+      children: <Widget>[
+        CalcResultText(dispValue: dispOperand.formatWithCommas()),
+        for (List<Widget> buttonRow in buttonList)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ...buttonRow,
+            ],
+          ),
+      ],
     );
   }
 
   @override
-  double operand = 0;
+  double dispOperand = 0;
 
   @override
   void screenRefresh() => setState(() {});

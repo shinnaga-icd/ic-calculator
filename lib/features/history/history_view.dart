@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ic_calculator/core/extentions/datetime_extentions.dart';
+import 'package:ic_calculator/core/extentions/num_extentions.dart';
 import 'package:ic_calculator/features/history/history_presenter.dart';
 import 'package:ic_calculator/features/history/widgets/calc_history_item.dart';
 
@@ -9,44 +11,25 @@ class HistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
+    final historyData = presenter.getCalcHistory(context);
+
+    return historyData.history.isEmpty
+        ? const Center(child: Text('No Data.'))
+        : Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  for (final item in mock)
-                    CalculationHistoryItem(
-                        calculationDate: item.$1,
-                        calculationExpression: item.$2,
-                        calculationResult: item.$3),
-                ],
-              ),
+              child: Builder(builder: (context) {
+                return Column(
+                  children: [
+                    for (final item in historyData.history.reversed)
+                      CalcHistoryItem(
+                        calcDate: item.execDateTime.toStringWithFormat(),
+                        calcExpression: item.formula.join(' '),
+                        calcResult: item.result.formatWithCommas(),
+                      ),
+                  ],
+                );
+              }),
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => presenter.backPage(context),
-        child: const Icon(Icons.calculate),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-    );
+          );
   }
 }
-
-List<(String, String, String)> mock = [
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-  ('2023/12/01 01:01:01', '1 + 2 + 3', '6'),
-];

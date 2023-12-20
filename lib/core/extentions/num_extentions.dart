@@ -1,4 +1,4 @@
-extension StringExtention on num {
+extension NumExtention on num {
   String formatWithCommas() {
     String intPart = _getIntegerPartWithCommas(this);
     String dcmPart = _getDecimalPart(this);
