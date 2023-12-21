@@ -15,21 +15,25 @@ class HistoryView extends StatelessWidget {
 
     return historyData.history.isEmpty
         ? const Center(child: Text('No Data.'))
-        : Expanded(
-            child: SingleChildScrollView(
-              child: Builder(builder: (context) {
-                return Column(
-                  children: [
-                    for (final item in historyData.history.reversed)
-                      CalcHistoryItem(
-                        calcDate: item.execDateTime.toStringWithFormat(),
-                        calcExpression: item.formula.join(' '),
-                        calcResult: item.result.formatWithCommas(),
-                      ),
-                  ],
-                );
-              }),
-            ),
+        : Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Builder(builder: (context) {
+                    return Column(
+                      children: [
+                        for (final item in historyData.history.reversed)
+                          CalcHistoryItem(
+                            calcDate: item.execDateTime.toStringWithFormat(),
+                            calcExpression: item.formula.join(' '),
+                            calcResult: item.result.formatWithCommas(),
+                          ),
+                      ],
+                    );
+                  }),
+                ),
+              ),
+            ],
           );
   }
 }

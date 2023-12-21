@@ -5,5 +5,5 @@ import 'package:ic_calculator/core/state/calc_history.dart';
 class HistoryPresenter {
   /// 計算履歴取得
   CalcHistoryModel getCalcHistory(BuildContext context) =>
-      CalcHistory.of(context).calcHistoryModel;
+      CalcHistory.of(context).calcHistoryData;
 }

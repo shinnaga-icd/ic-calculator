@@ -6,9 +6,11 @@ class CalcHistory extends StatefulWidget {
   const CalcHistory({
     super.key,
     required this.child,
+    this.calcHistory,
   });
 
   final Widget child;
+  final CalcHistoryModel? calcHistory;
 
   /// ofコンストラクタ
   /// contextからInheritedWidgetを遡って取得
@@ -29,11 +31,19 @@ class CalcHistory extends StatefulWidget {
 }
 
 class CalcHistoryState extends State<CalcHistory> {
-  CalcHistoryModel calcHistoryModel = CalcHistoryModel.empty();
+  late CalcHistoryModel calcHistoryData;
+
+  CalcHistoryState();
 
   /// CalcHisotryへ計算結果追加
   void addCalcHistory(CalcHistoryResultModel result) =>
-      calcHistoryModel.history.add(result);
+      calcHistoryData.history.add(result);
+
+  @override
+  void initState() {
+    super.initState();
+    calcHistoryData = widget.calcHistory ?? CalcHistoryModel.empty();
+  }
 
   @override
   Widget build(BuildContext context) {
